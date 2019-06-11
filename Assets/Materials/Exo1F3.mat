@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Exo1F1
-  m_Shader: {fileID: 4800000, guid: 93197d47c7e0c9748a57ff80abcf046c, type: 3}
+  m_Name: Exo1F3
+  m_Shader: {fileID: 4800000, guid: 913e70636d83cf843b5f4474d6a70594, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -56,17 +56,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _CircleRadius: 0.467
+    - _CircleRadius: 0.5
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.48
     - _GlossyReflections: 1
-    - _GridScale: 1.91
+    - _GridScale: 2
     - _Metallic: 0
     - _Mode: 0
-    - _NumberOfBands: 9.88
+    - _NumberOfBands: 10
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Radius: 0.5
@@ -79,6 +79,6 @@ Material:
     - _BackGroundColor: {r: 57.31347, g: 70.758545, b: 328.3907, a: 1}
     - _BackgroundColor: {r: 0, g: 0, b: 1, a: 1}
     - _BandEndColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BandStartColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BandStartColor: {r: 0, g: 0.086724825, b: 0.4811321, a: 1}
     - _Color: {r: 0.048460312, g: 0.17422563, b: 0.9339623, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
