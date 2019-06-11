@@ -6,8 +6,8 @@
 		_BackgroundColor("Background Color", Color) = (0,0,1,1)
 		_BandStartColor("Band Start Color", Color) = (0.25,0,0,1)
 		_BandEndColor("Band End Color", Color) = (1,0,0,1)
-		_NumberOfBands("Number Bands", Int) = 5
-		_CircleRadius("Circle Radius", Range(0.01,0.5)) = 0.5
+		_CircleRadius("Circle Radius", Range(0.01,1)) = 1
+		_NbCircle("Nb Circle", Int) = 2
 	}
 	SubShader
 	{
@@ -42,47 +42,39 @@
 			fixed4 _BackgroundColor;
 			fixed4 _BandStartColor;
 			fixed4 _BandEndColor;
-			int _NumberOfBands;
 			fixed _CircleRadius;
+			fixed _NbCircle;
 			
-			v2f vert (appdata v)
+			v2f vert(appdata v)
 			{
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-				UNITY_TRANSFER_FOG(o,o.vertex);
+				UNITY_TRANSFER_FOG(o, o.vertex);
 				return o;
 			}
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
 				float2 center = float2(0.5f, 0.5f);
-				float distanceToCenter = distance(i.uv, center);
+
 				col = _BackgroundColor;
 
-				float isInCircle = 1 - smoothstep(_CircleRadius - .5f, _CircleRadius + .5f, distanceToCenter);
+				float distanceToCenter = distance(i.uv, center);
+
+				float circleSize = _CircleRadius / _NbCircle;
+
+				float CircleID = floor(distanceToCenter / circleSize);
+
+				float isInCircle = 1 - smoothstep(_CircleRadius - .001f, _CircleRadius + .001f, distanceToCenter);
 
 				float4 circleColor = _BandStartColor;
 
-				float bandWidth = (_CircleRadius) / (float)_NumberOfBands;
-
-				float4  startColor = lerp(_BandStartColor, _BandEndColor, step(center.y, i.uv.y));
-				float4  endColor = lerp(_BandEndColor, _BandStartColor, step(center.y, i.uv.y));
-
-				//float bandID = floor(((0.5 - _CircleRadius)) / bandWidth);
-
-				//circleColor = lerp(startColor, endColor, 1);
-				if (distanceToCenter < 0.2f)
-				{
-					col = lerp(col, _BandEndColor, isInCircle);
-				}
+				circleColor = lerp(_BandStartColor, _BandEndColor, CircleID / (_NbCircle - 1));
 
 				col = lerp(col, circleColor, isInCircle);
 
-				// apply fog
-				UNITY_APPLY_FOG(i.fogCoord, col);
 				return col;
 			}
 			ENDCG
