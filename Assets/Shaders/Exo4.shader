@@ -58,14 +58,14 @@
 			fixed4 frag (v2f i) : SV_Target
 			{
 				// sample the texture
-				//fixed4 col = tex2D(_MainTex, i.uv);
+				fixed4 col = tex2D(_MainTex, i.uv);
 				
 				float2 sizeSprite = float2(1.0 / _NFramesPerAnimation, 1.0 / _NAnimations);
 				int currentFrame = floor((_Time.y / _DurationBetweenFrames) % _NFramesPerAnimation);
-				float2 nextFrame = float2(sizeSprite.x*0.1, sizeSprite.y*_Time.x); //Ligne a changer
+				float2 nextFrame = float2(sizeSprite.x*currentFrame, sizeSprite.y*_AnimationIndex); //Ligne a changer
 				float2 st = nextFrame + float2(i.uv.x * sizeSprite.x, i.uv.y * sizeSprite.y);
-				fixed4 col = tex2D(_MainTex, st);
-				col.a = _Alpha;
+				col = tex2D(_MainTex, st);
+				//col.a = _Alpha;
 
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, col);
